@@ -16,7 +16,6 @@ global.bot = new Telegraf(config.BOT_TOKEN, {
 // Updating info
 setup.login(bot);
 
-web.ch();
 
 
 bot.start((ctx) => {
