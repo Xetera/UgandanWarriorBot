@@ -1,13 +1,21 @@
-// $$ = Xetera
+// $ = Xetera
 
-// $$importing local files with ./ in the beginning
+// importing local files with ./ in the beginning
 const config = require('./config');
-// $$libraries just straight up as it is
+const web = require('./Commands/Web');
+const setup = require('./lib/Setup');
+
+// libraries just straight up as it is
 const Telegraf = require('telegraf');
 
-const bot = new Telegraf(config.BOT_TOKEN, {
+
+global.bot = new Telegraf(config.BOT_TOKEN, {
     username: "UgandanWarriorBot"
 });
+
+// Updating info
+setup.login(bot);
+
 
 
 bot.start((ctx) => {
@@ -25,10 +33,16 @@ bot.hears('hi', ctx => {
     ctx.reply('Hey there!');
 });
 
+bot.command('ch', async(ctx) => {
+    web.ch().then(img => {
+        ctx.replyWithPhoto(img);
+    });
+});
 
-// $$regex voodoo, you're probably more knowledgeable about this than I am lmao
+
+// regex voodoo, $ you're probably more knowledgeable about this than I am lmao
 bot.hears(/buy/i, ctx => {
-    ctx.reply('Buy-buy!')
+    ctx.reply('Buy-buy!');
 });
 
 bot.on('sticker', ctx => {
