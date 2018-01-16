@@ -56,8 +56,8 @@ bot.command('help', ctx => {
 });
 
 
-bot.hears('hi', ctx => {
-
+bot.hears(/stupid bot/i, ctx => {
+    ctx.reply('Hey watch your mouth motherfucker');
 });
 
 bot.command('hi', ctx => {
