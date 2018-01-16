@@ -30,10 +30,11 @@ function ch(){
             // files hosted on explosm start with //files.explosm.etc so we have to put a
             // http: in front of it so the downloader doesn't shit itself
             resolve('http:' + comic);
-            debugInfo('Retrieved comic successfully');
+            debug.info('Retrieved comic successfully');
 
 
         }).catch(e=>{
+            debug.error(e);
             if (e.response.status === 404){
                 // some comics are empty so we want to retry when that happens and
                 // hope that we eventually get a comic.
@@ -43,7 +44,7 @@ function ch(){
                 ch();
             }
             // if the problem isn't a 404 then there's another problem that we have to catch
-            debugError('Problem with reaching website', e);
+            debug.error('Problem with reaching website', e);
 
             reject(e);
         });

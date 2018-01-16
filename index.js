@@ -22,31 +22,28 @@ bot = new Telegraf(config.BOT_TOKEN);
 // Updating info
 setup.login(bot);
 
-
 /*
-bot.use((ctx, next) => {
-    if (ctx.message.text.isToken()){
-        ctxremove();
-    }
-});
-*/
-bot.start((ctx) => {
-    console.log('started:', ctx.from.id);
-    console.log(ctx.chat);
-    console.log(ctx.message);
-
-    return ctx.reply('Welcome!');
-});
-
+ * Setting up our middleware, this function is going to get run
+ * first every single time someone sends a message, that way we
+ * can do things like store messages before we respond to them
+ * or do regex matching or whatever
+ */
 bot.use((ctx, next) => {
     const start = new Date();
     listeners.checkTokenLeak(ctx);
 
     return next().then(() => {
         const ms = new Date() - start;
-        console.log('response time %sms', ms)
+        debug.info('response time %sms', ms)
     });
 });
+
+
+bot.start((ctx) => {
+    console.log('started:', ctx.from.id);
+    return ctx.reply('Welcome!');
+});
+
 
 
 
@@ -67,16 +64,23 @@ bot.command('hi', ctx => {
 
 
 
-bot.command('ch', (ctx) => {
-    debugInfo('Got request for %o', '/ch');
-    web.ch()
-        .then(img => {
-        ctx.replyWithPhoto(img);
-    })
-        .catch(e=> {
+bot.command('ch', async(ctx) => {
+    debug.info('Got request for %o', '/ch');
+    /* instead of using .then() we can make our functions
+     * asynchronous and just call await which makes things
+     * much simpler. This works on any promise so you don't
+     * have to change the promise itself, just the function
+     * you're calling it in to async.
+     */
+    let picture = await web.ch();
 
-            ctx.reply(replies.errorResponse(e))
-        });
+    try {
+        await ctx.replyWithPhoto(picture);
+    }
+    catch (e){
+        ctx.reply(replies.errorResponse(e))
+    }
+
 });
 
 
@@ -100,6 +104,8 @@ bot.catch(err => {
 // starts the bot
 bot.startPolling()
     .catch(e => {
-        // we should be catching this with a debug thing but whatever I don't care
+        // this is just a general catch, it gets called when there's
+        // a mistake somewhere else in our code like we call a function
+        // that's not defined, have scoping problems etc
         debug.error(e);
     });
