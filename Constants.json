@@ -6,5 +6,8 @@
     "ID": "",
     "FIRST_NAME": "",
     "USERNAME": ""
+  },
+  "SETTINGS":{
+    "debug": true
   }
 }
