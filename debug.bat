@@ -1,0 +1,1 @@
+set DEBUG=telegraf:api, Bot:* & npm start nodemon index.js
