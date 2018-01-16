@@ -1,5 +1,7 @@
 # UgandanWarriorBot
 
-enter your bot token in config.js
+Enter your bot token in config.js
 
-build the dependencies with `npm install`
+Build the dependencies with `npm install` otherwise it wont work, obviously.
+
+use debug.bat while developing to get automatic restarts with nodemon on code change and debug messages from telegraf:api
