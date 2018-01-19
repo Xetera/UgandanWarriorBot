@@ -15,7 +15,8 @@ let messageInfo = {
         {
             "id": "the id of the user",
             "is_bot": "if the sender of the message is a bot",
-            "first_name": "Probably what you have your name set to and not your username"
+            "first_name": "Probably what you have your name set to and not your username",
+            "username" : "username"
         },
     "chat":
         {
