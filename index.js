@@ -11,6 +11,8 @@ const replies = require('./lib/Replies');
 const constants = require('./Constants');
 const debug = require('./Development/Debug').debug;
 const listeners = require('./lib/Listeners');
+const save = require('./lib/Save');
+
 
 // libraries just straight up as it is
 const Telegraf = require('telegraf');
@@ -49,7 +51,13 @@ bot.start((ctx) => {
 });
 
 
-
+bot.command('invites', ctx => {
+    // getting the title of the group chat
+    let groupChat = ctx.update.message.chat;
+    debug.info()
+    //save.addNewServer(groupChat);
+    //save.addNewServer();
+});
 
 
 bot.command('help', ctx => {
@@ -63,7 +71,7 @@ bot.hears(/stupid bot/i, ctx => {
 
 bot.command('hi', ctx => {
 
-    ctx.reply(`Hi [${ctx.from.first_name}](${ctx.from.id})!`);
+    ctx.reply(`Hi @${ctx.from.username}!`);
 });
 
 
