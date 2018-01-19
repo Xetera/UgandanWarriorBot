@@ -29,12 +29,16 @@ setup.login(bot);
  * or do regex matching or whatever
  */
 bot.use((ctx, next) => {
+    // this part is run before any other function receives the request
     const start = new Date();
-    listeners.checkTokenLeak(ctx);
+    listeners.checkRegex(ctx);
+    listeners.checkCommand(ctx);
+
 
     return next().then(() => {
+        // this part gets run after we're done with handling the request
         const ms = new Date() - start;
-        debug.info('response time %sms', ms)
+        debug.info('Responded to request in %sms', ms)
     });
 });
 
@@ -65,7 +69,6 @@ bot.command('hi', ctx => {
 
 
 bot.command('ch', async(ctx) => {
-    debug.info('Got request for %o', '/ch');
     /* instead of using .then() we can make our functions
      * asynchronous and just call await which makes things
      * much simpler. This works on any promise so you don't

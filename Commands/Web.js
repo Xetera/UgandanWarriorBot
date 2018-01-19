@@ -22,7 +22,7 @@ function ch(){
         // sometimes this will give us a straight up text saying 'Could not find comic'
         // because some # of comics are missing.
         let URL = constants.URLS.CH_BASE_URL + 'comics/' + random + '/';
-
+        debug.info('Trying to fetch comic');
         axios.get(URL).then(res=>{
             let $ = cheerio.load(res.data);
             let comic = $('#main-comic').attr('src');
