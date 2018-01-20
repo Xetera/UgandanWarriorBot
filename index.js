@@ -34,8 +34,8 @@ setup.login(bot);
 bot.use((ctx, next) => {
     // this part is run before any other function receives the request
     const start = new Date();
-    console.log(ctx);
 
+    
     // we only want this to run if the message we got was a text
     // otherwise the bot might break
     if (ctx.message.text) {
