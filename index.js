@@ -5,7 +5,7 @@
 
 // importing local files with ./ in the beginning
 const config = require('./config');
-const web = require('./Commands/Web');
+const web = require('./Commands/Web/Web');
 const setup = require('./lib/Setup');
 const replies = require('./lib/Replies');
 const constants = require('./Constants');
@@ -14,6 +14,7 @@ const listeners = require('./lib/Listeners');
 const save = require('./lib/Save');
 
 
+const Reddit = require('./Commands/Web/Reddit');
 // libraries just straight up as it is
 const Telegraf = require('telegraf');
 
@@ -33,9 +34,14 @@ setup.login(bot);
 bot.use((ctx, next) => {
     // this part is run before any other function receives the request
     const start = new Date();
-    listeners.checkRegex(ctx);
-    listeners.checkCommand(ctx);
 
+    // we only want this to run if the message we got was a text
+    // otherwise the bot might break
+    if (ctx.message.text) {
+        listeners.getArgs(ctx);
+        listeners.checkRegex(ctx);
+        ctx['args'] = listeners.checkCommand(ctx);
+    }
 
     return next().then(() => {
         // this part gets run after we're done with handling the request
@@ -43,6 +49,11 @@ bot.use((ctx, next) => {
         debug.info('Responded to request in %sms', ms)
     });
 });
+
+
+
+
+
 
 
 bot.start((ctx) => {
@@ -59,9 +70,19 @@ bot.command('invites', ctx => {
     //save.addNewServer();
 });
 
+bot.command('reddit', ctx => {
+    Reddit.getTopPost('funny').then(resp=>{
+        ctx.replyWithMediaGroup([{
+            media: resp.imageURL,
+            caption: resp.postTitle,
+            type: 'photo'
+        }]);
+    })
+});
+
 
 bot.command('help', ctx => {
-    ctx.reply('Whatsapp : not da wae\nTelegram : definitely waed');
+    ctx.reply('Whatsapp : not da wae\nTelegram : definitely wae');
 });
 
 
@@ -70,7 +91,7 @@ bot.hears(/stupid bot/i, ctx => {
 });
 
 bot.command('hi', ctx => {
-
+    debug.warning(ctx.args);
     ctx.reply(`Hi @${ctx.from.username}!`);
 });
 
