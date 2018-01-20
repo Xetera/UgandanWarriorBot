@@ -34,13 +34,17 @@ setup.login(bot);
 bot.use((ctx, next) => {
     // this part is run before any other function receives the request
     const start = new Date();
+    console.log(ctx);
 
     // we only want this to run if the message we got was a text
     // otherwise the bot might break
     if (ctx.message.text) {
         listeners.getArgs(ctx);
         listeners.checkRegex(ctx);
-        ctx['args'] = listeners.checkCommand(ctx);
+
+        // we're parsing the info to extend the context
+        // to include arguments given in the command
+        ctx.args = listeners.getArgs(ctx);
     }
 
     return next().then(() => {
@@ -49,10 +53,6 @@ bot.use((ctx, next) => {
         debug.info('Responded to request in %sms', ms)
     });
 });
-
-
-
-
 
 
 
@@ -127,8 +127,9 @@ bot.on('sticker', ctx => {
 });
 
 // catching telegraf's errors
+// for now this isn't really working the way we want it to
 bot.catch(err => {
-    //debugError("Telegraf Error", err);
+    //debug.error("Telegraf Error", err);
 });
 
 
