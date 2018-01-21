@@ -52,9 +52,9 @@ function getTopRandomPost(){
             let type = !res[0].url.isMedia();
 
             if (type)
-                out.imageURL = images.fetchImageURLfromImgur(res[0].url);
+                out.resp = images.fetchImageURLfromImgur(res[0].url);
             else {
-                out.imageURL = res[0].url;
+                out.resp = images.tryGetRedditMedia(res[0]);
             }
             out.postTitle = generateCaption(res[0]);
             out.type = type;

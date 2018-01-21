@@ -68,10 +68,14 @@ bot.command('invites', ctx => {
 });
 
 bot.command('reddit', ctx => {
+    // we don't want to all these things in index so we'll modularize this part later
+
     // no argument
     if (!ctx.args.argArray[0]){
         ctx.reply("No subreddit specified, sending random");
         return Reddit.getTopRandomPost().then(resp=>{
+
+
             ctx.replyWithMediaGroup([{
                 media: resp.imageURL,
                 caption: resp.postTitle,
