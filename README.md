@@ -36,7 +36,8 @@ Uses Middleware to parse messages for things like arguments and match regex.
 
 * [Download](https://github.com/kevva/download) for downloading web elements (optional)
 
-#TODO:
+## TODO:
+
 - [x] Automatically delete leaked bot tokens
 - [x] Automatically delete invites
 - [ ] Add a persistent db, prefereably noSQL since we're working with node
