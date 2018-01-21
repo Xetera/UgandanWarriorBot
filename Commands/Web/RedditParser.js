@@ -28,12 +28,17 @@ function isGif(link){
 
 
 function parseSelfPostText(text){
-    return (text.slice(100));
+    let cutoff = 300;
+    if (text.length > cutoff) {
+        return text.slice(0, cutoff) + '...';
+    }
+    return text;
 }
 
 exports.parseRedditResponse = function(post){
     let response = {};
     debug.info("POST URL " + post.url);
+
     if (post.is_self){
         // self posts are text-only posts
         //TODO: self posts can get kind of wild so we might want to look for
@@ -42,6 +47,7 @@ exports.parseRedditResponse = function(post){
         response.media = post.thumbnail.isMedia() ? post.thumbnail : null;
         response.text = parseSelfPostText(post.selftext);
         response.type = 'text';
+        response.url = post.url;
 
         debug.warning("post is self post")
     }
@@ -52,8 +58,12 @@ exports.parseRedditResponse = function(post){
         if (isGif(post.url)){
             response.type = 'gif';
         }
+
         else {
             response.type = "photo";
+        }
+        if (post.url.contains('youtube.')){
+            response.url = post.url;
         }
 
         // this is the point where we know it's not
@@ -71,6 +81,7 @@ exports.parseRedditResponse = function(post){
         response.text = post.url;
         response.type = 'photo';
     }
+
     debug.error(response.media);
     return response;
 };
