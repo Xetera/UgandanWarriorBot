@@ -83,38 +83,17 @@ bot.command('reddit', ctx => {
     if (!ctx.args.argArray[0]){
         ctx.reply("No subreddit specified, sending random");
         return reddit.getTopRandomPost().then(resp=>{
-            if (resp.type === "text"){
-                ctx.reply(resp.postTitle + '\n\n' + resp.text + '\n' + resp.url);
-            }
-            else if (resp.type === "photo"){
-                let caption = resp.url ? resp.postTitle + resp.url : resp.postTitle;
-                ctx.replyWithMediaGroup([{
-                    media: resp.media,
-                    caption: caption,
-                    // we really have to fix this and make sure
-                    // we're controlling for different types of media
-                    type: "photo"
-                }]);
-            }
-            else if (resp.type === 'gif'){
-                ctx.reply(resp.postTitle + resp.text);
-                ctx.replyWithDocument(resp.media);
-            }
+            reddit.sendRedditResponse(ctx, resp);
         });
     }
 
     // only looking at the first argument since subreddit names are one word
     let subreddit = ctx.args.argArray[0];
 
-    reddit.getTopPost(subreddit).then(resp=>{
+    return reddit.getTopPost(subreddit).then(resp=>{
+        reddit.sendRedditResponse(ctx, resp);
+    });
 
-            ctx.replyWithMediaGroup([{
-                media: resp.imageURL,
-                caption: resp.postTitle,
-                type: "photo"
-        }]);
-
-    })
 });
 
 bot.command('test', ctx => {

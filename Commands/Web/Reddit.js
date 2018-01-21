@@ -21,17 +21,15 @@ function getTopPost(subReddit){
     let out = {};
     return new Promise(function(resolve, reject){
         r.getSubreddit(subReddit).getTop().then(res=> {
-            // this is obviously not going to work for things that aren't from imgur
-            // or for images that we can't
+
             debug.info(res[0]);
-            let type = !res[0].url.isMedia();
-            if (type)
-                out.imageURL = images.fetchImageURLfromImgur(res[0].url);
-            else {
-                out.imageURL = res[0].url;
-            }
+
+            // getting object response and flattening it into our 'out' object
+            // because we don't want unnecessary branches
+            util.flattenObject(out, images.parseRedditResponse(res[0]));
+
             out.postTitle = generateCaption(res[0]);
-            out.type = type;
+            debug.warning(out);
             resolve(out);
         }).catch(err=>{
             debug.error(err);
@@ -71,6 +69,26 @@ function generateCaption(post){
     return `${post.subreddit_name_prefixed} - ${post.ups} upvotes \n${post.title}  `
 }
 
+
+exports.sendRedditResponse = function(ctx, resp){
+    if (resp.type === "text"){
+        ctx.reply(resp.postTitle + '\n\n' + resp.text + '\n' + resp.url);
+    }
+    else if (resp.type === "photo"){
+        let caption = resp.url ? resp.postTitle + resp.url : resp.postTitle;
+        ctx.replyWithMediaGroup([{
+            media: resp.media,
+            caption: caption,
+            // we really have to fix this and make sure
+            // we're controlling for different types of media
+            type: "photo"
+        }]);
+    }
+    else if (resp.type === 'gif'){
+        ctx.reply(resp.postTitle + resp.text);
+        ctx.replyWithDocument(resp.media);
+    }
+};
 
 
 exports.getTopRandomPost = getTopRandomPost;
