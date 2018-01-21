@@ -1,11 +1,8 @@
 // $ = Xetera
-/*
- * You can launch this code
- */
 
 // importing local files with ./ in the beginning
 const config = require('./config');
-const web = require('./Commands/Web');
+const web = require('./Commands/Web/Web');
 const setup = require('./lib/Setup');
 const replies = require('./lib/Replies');
 const constants = require('./Constants');
@@ -14,6 +11,7 @@ const listeners = require('./lib/Listeners');
 const save = require('./lib/Save');
 
 
+const Reddit = require('./Commands/Web/Reddit');
 // libraries just straight up as it is
 const Telegraf = require('telegraf');
 
@@ -33,9 +31,18 @@ setup.login(bot);
 bot.use((ctx, next) => {
     // this part is run before any other function receives the request
     const start = new Date();
-    listeners.checkRegex(ctx);
-    listeners.checkCommand(ctx);
 
+
+    // we only want this to run if the message we got was a text
+    // otherwise the bot might break
+    if (ctx.message.text) {
+        listeners.getArgs(ctx);
+        listeners.checkRegex(ctx);
+
+        // we're parsing the info to extend the context
+        // to include arguments given in the command
+        ctx.args = listeners.getArgs(ctx);
+    }
 
     return next().then(() => {
         // this part gets run after we're done with handling the request
@@ -43,6 +50,7 @@ bot.use((ctx, next) => {
         debug.info('Responded to request in %sms', ms)
     });
 });
+
 
 
 bot.start((ctx) => {
@@ -59,9 +67,41 @@ bot.command('invites', ctx => {
     //save.addNewServer();
 });
 
+bot.command('reddit', ctx => {
+    // no argument
+    if (!ctx.args.argArray[0]){
+        ctx.reply("No subreddit specified, sending random");
+        return Reddit.getTopRandomPost().then(resp=>{
+            ctx.replyWithMediaGroup([{
+                media: resp.imageURL,
+                caption: resp.postTitle,
+                // we really have to fix this and make sure
+                // we're controlling for different types of media
+                type: "photo"
+            }]);
+        });
+    }
+
+    // only looking at the first argument since subreddit names are one word
+    let subreddit = ctx.args.argArray[0];
+
+    Reddit.getTopPost(subreddit).then(resp=>{
+
+            ctx.replyWithMediaGroup([{
+                media: resp.imageURL,
+                caption: resp.postTitle,
+                type: "photo"
+        }]);
+
+    })
+});
+
+bot.command('test', ctx => {
+    ctx.reply("https://media.giphy.com/media/SXeezvYc8uRUc/giphy.gif\nTest");
+})
 
 bot.command('help', ctx => {
-    ctx.reply('Whatsapp : not da wae\nTelegram : definitely waed');
+    ctx.reply('Whatsapp : not da wae\nTelegram : definitely wae');
 });
 
 
@@ -70,7 +110,7 @@ bot.hears(/stupid bot/i, ctx => {
 });
 
 bot.command('hi', ctx => {
-
+    debug.warning(ctx.args);
     ctx.reply(`Hi @${ctx.from.username}!`);
 });
 
@@ -106,8 +146,8 @@ bot.on('sticker', ctx => {
 });
 
 // catching telegraf's errors
+// for now this isn't really working the way we want it to
 bot.catch(err => {
-    //debugError("Telegraf Error", err);
 });
 
 
@@ -119,4 +159,5 @@ bot.startPolling()
         // a mistake somewhere else in our code like we call a function
         // that's not defined, have scoping problems etc
         debug.error(e);
+
     });
