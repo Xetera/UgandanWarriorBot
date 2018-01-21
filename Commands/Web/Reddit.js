@@ -1,6 +1,8 @@
 const snoowrap = require('snoowrap');
 const config = require('../../config');
-const images = require('./Images');
+const images = require('./RedditParser');
+const util = require('../../lib/Utility');
+
 
 const r = new snoowrap({
     userAgent: "Reddit integration for UgandanWarriorBot on Telegram",
@@ -49,15 +51,13 @@ function getTopRandomPost(){
             // this is obviously not going to work for things that aren't from imgur
             // or for images that we can't
             debug.info(res[0]);
-            let type = !res[0].url.isMedia();
 
-            if (type)
-                out.resp = images.fetchImageURLfromImgur(res[0].url);
-            else {
-                out.resp = images.tryGetRedditMedia(res[0]);
-            }
+            // getting object response and flattening it into our 'out' object
+            // because we don't want unnecessary branches
+            util.flattenObject(out, images.parseRedditResponse(res[0]));
+
             out.postTitle = generateCaption(res[0]);
-            out.type = type;
+            debug.warning(out);
             resolve(out);
         }).catch(err=>{
             debug.error(err);
@@ -70,6 +70,8 @@ function getTopRandomPost(){
 function generateCaption(post){
     return `${post.subreddit_name_prefixed} - ${post.ups} upvotes \n${post.title}  `
 }
+
+
 
 exports.getTopRandomPost = getTopRandomPost;
 exports.getTopPost = getTopPost;

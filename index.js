@@ -9,9 +9,9 @@ const constants = require('./Constants');
 const debug = require('./Development/Debug').debug;
 const listeners = require('./lib/Listeners');
 const save = require('./lib/Save');
+const reddit = require('./Commands/Web/Reddit');
 
 
-const Reddit = require('./Commands/Web/Reddit');
 // libraries just straight up as it is
 const Telegraf = require('telegraf');
 
@@ -31,12 +31,14 @@ setup.login(bot);
 bot.use((ctx, next) => {
     // this part is run before any other function receives the request
     const start = new Date();
-
+    let messageType;
 
     // we only want this to run if the message we got was a text
     // otherwise the bot might break
     if (ctx.message.text) {
-        listeners.getArgs(ctx);
+        messageType = listeners.checkCommand(ctx, start);
+
+        // see if the message matches any of the things that we're checking for
         listeners.checkRegex(ctx);
 
         // we're parsing the info to extend the context
@@ -46,8 +48,15 @@ bot.use((ctx, next) => {
 
     return next().then(() => {
         // this part gets run after we're done with handling the request
-        const ms = new Date() - start;
-        debug.info('Responded to request in %sms', ms)
+
+        if (messageType === "command"){ // we only want to log command response time
+            const ms = new Date() - start;
+            let color;
+            if (ms < 100){
+                color = ""
+            }
+            debug.info('Responded to request in %b', ms + 'ms')
+        }
     });
 });
 
@@ -73,23 +82,30 @@ bot.command('reddit', ctx => {
     // no argument
     if (!ctx.args.argArray[0]){
         ctx.reply("No subreddit specified, sending random");
-        return Reddit.getTopRandomPost().then(resp=>{
-
-
-            ctx.replyWithMediaGroup([{
-                media: resp.imageURL,
-                caption: resp.postTitle,
-                // we really have to fix this and make sure
-                // we're controlling for different types of media
-                type: "photo"
-            }]);
+        return reddit.getTopRandomPost().then(resp=>{
+            if (resp.type === "text"){
+                ctx.reply(resp.postTitle + resp.text);
+            }
+            else if (resp.type === "photo"){
+                ctx.replyWithMediaGroup([{
+                    media: resp.media,
+                    caption: resp.postTitle,
+                    // we really have to fix this and make sure
+                    // we're controlling for different types of media
+                    type: "photo"
+                }]);
+            }
+            else if (resp.type === 'gif'){
+                ctx.reply(resp.postTitle + resp.text);
+                ctx.replyWithDocument(resp.media);
+            }
         });
     }
 
     // only looking at the first argument since subreddit names are one word
     let subreddit = ctx.args.argArray[0];
 
-    Reddit.getTopPost(subreddit).then(resp=>{
+    reddit.getTopPost(subreddit).then(resp=>{
 
             ctx.replyWithMediaGroup([{
                 media: resp.imageURL,
