@@ -65,6 +65,12 @@ function getTopRandomPost(){
     });
 }
 
+/**
+ * Generating caption for the /reddit response
+ *
+ * @param {object} post
+ * @returns {string}
+ */
 function generateCaption(post){
     return `${post.subreddit_name_prefixed} - ${post.ups} upvotes \n${post.title}  `
 }
