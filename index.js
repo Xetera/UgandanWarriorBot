@@ -56,9 +56,9 @@ bot.use((ctx, next) => {
             const ms = new Date() - start;
             let color;
             if (ms < 100){
-                color = ""
+                color = "" // TODO: see if we can get response time based colors to work
             }
-            debug.info('Responded to request in %b', ms + 'ms')
+            debug.info('Responded to request in ', ms + 'ms')
         }
     });
 });
@@ -84,7 +84,7 @@ bot.command('reddit', ctx => {
 
     // no argument
     if (!ctx.args.argArray[0]){
-        ctx.reply("No subreddit specified, sending random");
+        ctx.reply("No subreddit specified, sending random"); // $ delete this once we send the picture?
         return reddit.getTopRandomPost().then(resp=>{
             reddit.sendRedditResponse(ctx, resp);
         });
@@ -100,9 +100,9 @@ bot.command('reddit', ctx => {
 });
 
 bot.command('test', ctx => {
+    // test
     ctx.reply("https://media.giphy.com/media/SXeezvYc8uRUc/giphy.gif\nTest");
 });
-
 
 bot.command('help', ctx => {
     ctx.reply('Whatsapp : not da wae\nTelegram : definitely wae');
