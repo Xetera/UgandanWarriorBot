@@ -2,8 +2,10 @@
 
 // importing local files with ./ in the beginning
 let config;
-if (!process.env.TOKEN){}
+if (!process.env.TOKEN){
     config = require('./Private');
+}
+
 const web = require('./Commands/Web/Web');
 const setup = require('./lib/Setup');
 const replies = require('./lib/Replies');
