@@ -15,6 +15,7 @@
     "cheerio": "^1.0.0-rc.2",
     "debug": "^3.1.0",
     "download": "^6.2.5",
+    "mongoose": "^5.0.3",
     "snoowrap": "^1.15.2",
     "telegraf": "^3.17.3"
   },

@@ -1,9 +1,9 @@
 // $ = Xetera
 
 // importing local files with ./ in the beginning
-if (!process.env.TOKEN){
-    const config = require('./Private');
-}
+let config;
+if (!process.env.TOKEN){}
+    config = require('./Private');
 const web = require('./Commands/Web/Web');
 const setup = require('./lib/Setup');
 const replies = require('./lib/Replies');
@@ -19,7 +19,7 @@ const Reddit = require('./Commands/Web/Reddit');
 const Telegraf = require('telegraf');
 
 
-bot = new Telegraf(process.env.TOKEN || config.TOKEN);
+bot = new Telegraf(process.env.TOKEN || config.BETA_TOKEN);
 
 
 // Updating info
@@ -58,7 +58,7 @@ bot.use((ctx, next) => {
             const ms = new Date() - start;
             let color;
             if (ms < 100){
-                color = "" // TODO: see if we can get response time based colors to work
+                color = "green" // TODO: see if we can get response time based colors to work
             }
             debug.info('Responded to request in ', ms + 'ms')
         }
