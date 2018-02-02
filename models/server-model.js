@@ -1,24 +1,24 @@
 let mongoose = require('mongoose');
+const User = require('user-model');
 
-let ServerSchema = new mongoose.Schema({
+let ChatSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true,
         unique: true
     },
-    first_name: {
-        type: String,
-        required:true
-    },
-    is_bot: {
-        type: Boolean,
+    date: {
+        type: Date,
         required: true
     },
-    username: {
-        type: String,
-        required: true
-    }
+    type: {
+
+    },
+    users: {
+        type: [User],
+        required: false // in case our chat is PM
+    },
 
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Chat', ChatSchema);

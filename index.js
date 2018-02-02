@@ -39,7 +39,7 @@ bot.use((ctx, next) => {
 
     // returns argument type
     let messageType = listeners.middleWare(ctx, start);
-    //console.log(ctx.getChatMember());
+
     return next().then(() => {
         // this part gets run after we're done with handling the request
 
