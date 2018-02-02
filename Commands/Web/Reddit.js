@@ -1,5 +1,6 @@
 const snoowrap = require('snoowrap');
 const config = require('../../config');
+
 const images = require('./RedditParser');
 const util = require('../../lib/Utility');
 
@@ -16,20 +17,20 @@ const r = new snoowrap({
  *
  * @param {string} subReddit
  * @return {Promise<{postTitle: string, mediaURL: string, type: string}>}
+
  */
 function getTopPost(subReddit){
     let out = {};
     return new Promise(function(resolve, reject){
         r.getSubreddit(subReddit).getTop().then(res=> {
 
-            debug.info(res[0]);
 
             // getting object response and flattening it into our 'out' object
             // because we don't want unnecessary branches
             util.flattenObject(out, images.parseRedditResponse(res[0]));
 
             out.postTitle = generateCaption(res[0]);
-            debug.warning(out);
+
             resolve(out);
         }).catch(err=>{
             debug.error(err);
@@ -48,19 +49,20 @@ function getTopRandomPost(){
         r.getSubreddit('random').getHot().then(res=> {
             // this is obviously not going to work for things that aren't from imgur
             // or for images that we can't
-            debug.info(res[0]);
 
             // getting object response and flattening it into our 'out' object
             // because we don't want unnecessary branches
             util.flattenObject(out, images.parseRedditResponse(res[0]));
 
             out.postTitle = generateCaption(res[0]);
-            debug.warning(out);
+
+
             resolve(out);
         }).catch(err=>{
             debug.error(err);
             reject(err);
         });
+
 
     });
 }
@@ -98,4 +100,5 @@ exports.sendRedditResponse = function(ctx, resp){
 
 
 exports.getTopRandomPost = getTopRandomPost;
+
 exports.getTopPost = getTopPost;

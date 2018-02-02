@@ -1,7 +1,11 @@
 // $ = Xetera
 
 // importing local files with ./ in the beginning
-const config = require('./config');
+let config;
+if (!process.env.TOKEN){
+    config = require('./Private');
+}
+
 const web = require('./Commands/Web/Web');
 const setup = require('./lib/Setup');
 const replies = require('./lib/Replies');
@@ -12,11 +16,12 @@ const save = require('./lib/Save');
 const reddit = require('./Commands/Web/Reddit');
 
 
+const Reddit = require('./Commands/Web/Reddit');
 // libraries just straight up as it is
 const Telegraf = require('telegraf');
 
 
-bot = new Telegraf(config.BOT_TOKEN);
+bot = new Telegraf(process.env.TOKEN || config.BETA_TOKEN);
 
 
 // Updating info
@@ -31,20 +36,11 @@ setup.login(bot);
 bot.use((ctx, next) => {
     // this part is run before any other function receives the request
     const start = new Date();
-    let messageType;
 
-    // we only want this to run if the message we got was a text
-    // otherwise the bot might break
-    if (ctx.message.text) {
-        messageType = listeners.checkCommand(ctx, start);
+    // returns argument type
+    let messageType = listeners.middleWare(ctx, start);
 
-        // see if the message matches any of the things that we're checking for
-        listeners.checkRegex(ctx);
 
-        // we're parsing the info to extend the context
-        // to include arguments given in the command
-        ctx.args = listeners.getArgs(ctx);
-    }
 
     return next().then(() => {
         // this part gets run after we're done with handling the request
@@ -53,7 +49,7 @@ bot.use((ctx, next) => {
             const ms = new Date() - start;
             let color;
             if (ms < 100){
-                color = "" // TODO: see if we can get response time based colors to work
+                color = "green" // TODO: see if we can get response time based colors to work
             }
             debug.info('Responded to request in ', ms + 'ms')
         }
@@ -149,6 +145,7 @@ bot.on('sticker', ctx => {
 // catching telegraf's errors
 // for now this isn't really working the way we want it to
 bot.catch(err => {
+
 });
 
 
