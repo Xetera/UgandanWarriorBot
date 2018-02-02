@@ -17,7 +17,7 @@ const Reddit = require('./Commands/Web/Reddit');
 const Telegraf = require('telegraf');
 
 
-bot = new Telegraf(config.BOT_TOKEN);
+bot = new Telegraf(config.BOT_TOKEN || process.env.token);
 
 
 // Updating info
