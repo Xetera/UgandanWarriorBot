@@ -35,22 +35,9 @@ bot.use((ctx, next) => {
     // this part is run before any other function receives the request
     const start = new Date();
 
-    let messageType;
-
-    // we only want this to run if the message we got was a text
-    // otherwise the bot might break
-    if (ctx.message.text) {
-        messageType = listeners.checkCommand(ctx, start);
-
-        // see if the message matches any of the things that we're checking for
-
-        listeners.checkRegex(ctx);
-
-        // we're parsing the info to extend the context
-        // to include arguments given in the command
-        ctx.args = listeners.getArgs(ctx);
-    }
-
+    // returns argument type
+    let messageType = listeners.middleWare(ctx, start);
+    //console.log(ctx.getChatMember());
     return next().then(() => {
         // this part gets run after we're done with handling the request
 
