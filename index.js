@@ -1,7 +1,9 @@
 // $ = Xetera
 
 // importing local files with ./ in the beginning
-const config = require('./Private');
+if (!process.env.TOKEN){
+    const config = require('./Private');
+}
 const web = require('./Commands/Web/Web');
 const setup = require('./lib/Setup');
 const replies = require('./lib/Replies');
