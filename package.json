@@ -15,8 +15,10 @@
     "cheerio": "^1.0.0-rc.2",
     "debug": "^3.1.0",
     "download": "^6.2.5",
-    "nodemon": "^1.14.11",
     "snoowrap": "^1.15.2",
     "telegraf": "^3.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
   }
 }

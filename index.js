@@ -1,7 +1,7 @@
 // $ = Xetera
 
 // importing local files with ./ in the beginning
-const config = require('./config');
+const config = require('./Private');
 const web = require('./Commands/Web/Web');
 const setup = require('./lib/Setup');
 const replies = require('./lib/Replies');
@@ -17,7 +17,7 @@ const Reddit = require('./Commands/Web/Reddit');
 const Telegraf = require('telegraf');
 
 
-bot = new Telegraf(config.BOT_TOKEN || process.env.token);
+bot = new Telegraf(process.env.TOKEN || config.TOKEN);
 
 
 // Updating info
