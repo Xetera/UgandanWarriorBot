@@ -1,4 +1,5 @@
 let mongoose = require('mongoose');
+const mutes = require('./mute-model');
 
 let UserSchema = new mongoose.Schema({
     id: {
@@ -17,8 +18,21 @@ let UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true
+    },
+    messages: {
+        type:Number,
+        required: false
+    },
+    mutes: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId, ref: 'Mute'
+        }],
+        required: false
+    },
+    ignoring: {
+        type: Boolean,
+        required: false
     }
-
 });
 
 module.exports = mongoose.model('User', UserSchema);
