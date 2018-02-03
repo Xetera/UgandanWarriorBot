@@ -21,4 +21,4 @@ let MessageSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('User', MessageSchema);
+module.exports = mongoose.model('Message', MessageSchema);

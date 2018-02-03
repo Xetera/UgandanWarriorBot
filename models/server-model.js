@@ -12,11 +12,12 @@ let ChatSchema = new mongoose.Schema({
         required: true
     },
     type: {
-
+        type: String,
+        required: true
     },
     users: {
         type: [User],
-        required: false // in case our chat is PM
+        required: false // in case our chat is PM -> no users
     },
 
 });
