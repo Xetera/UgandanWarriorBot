@@ -17,8 +17,21 @@ let UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true
+    },
+    messages: {
+        type:Number,
+        required: false
+    },
+    sentences: {
+        type: {
+            type: mongoose.Schema.Types.ObjectId, ref: 'Sentence'
+        },
+        required: false
+    },
+    ignoring: { // ignoring all commands from user?
+        type: Boolean,
+        required: false
     }
-
 });
 
 module.exports = mongoose.model('User', UserSchema);

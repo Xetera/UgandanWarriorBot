@@ -2,8 +2,11 @@
 
 // importing local files with ./ in the beginning
 let config;
+
+const settings = require('./config');
 if (!process.env.TOKEN){
     config = require('./Private');
+    settings.developmentMode = true;
 }
 
 const web = require('./Commands/Web/Web');
@@ -24,7 +27,7 @@ const Telegraf = require('telegraf');
 bot = new Telegraf(process.env.TOKEN || config.BETA_TOKEN);
 
 
-// Updating info
+// Updating info & setup
 setup.login(bot);
 
 /*
@@ -40,6 +43,7 @@ bot.use((ctx, next) => {
     // returns argument type
     let messageType = listeners.middleWare(ctx, start);
 
+    
     return next().then(() => {
         // this part gets run after we're done with handling the request
 
