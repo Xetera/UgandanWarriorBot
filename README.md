@@ -1,6 +1,6 @@
 # Ugandan Warrior Bot
 
-Meme telegram bot project in node.js
+Meme telegram bot project in node.js, influenced by https://github.com/AberrantFox/hotbot
 
 ## Getting it to work:
 * Enter your bot token in config.js
@@ -27,7 +27,6 @@ Uses Middleware to parse messages for things like arguments and match regex.
 
 * [Cheerio](https://github.com/cheeriojs/cheerio) for web scraping
 
-
 * [Debug](https://github.com/visionmedia/debug) for, well, debugging
 
 * [Nodemon](https://github.com/remy/nodemon) for automatic restarts while working
@@ -40,7 +39,12 @@ Uses Middleware to parse messages for things like arguments and match regex.
 
 - [x] Automatically delete leaked bot tokens
 - [x] Automatically delete invites
-- [ ] Add a persistent db, prefereably noSQL since we're working with node
-- [ ] Add more moderation commands
+- [x] Add a persistent db, prefereably noSQL since we're working with node
+- [ ] Permanently save messages
+- [ ] Optionally move moderation commands to another server that you can link to the original
+- [ ] Add more moderation commands like: timed ban
+- [ ] Add continuous userCount polling to know when someone joins a group
+- [ ] Add user notes for mods
+- [ ] Introduce permissions for commands
 - [ ] Get good ideas
 
