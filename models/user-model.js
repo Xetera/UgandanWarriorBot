@@ -23,13 +23,13 @@ let UserSchema = new mongoose.Schema({
         type:Number,
         required: false
     },
-    mutes: {
-        type: [{
-            type: mongoose.Schema.Types.ObjectId, ref: 'Mute'
-        }],
+    sentences: {
+        type: {
+            type: mongoose.Schema.Types.ObjectId, ref: 'Sentence'
+        },
         required: false
     },
-    ignoring: {
+    ignoring: { // ignoring all commands from user?
         type: Boolean,
         required: false
     }

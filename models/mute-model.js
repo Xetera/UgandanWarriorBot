@@ -9,10 +9,10 @@ let MuteSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    totalMutes: {
-        type:Number,
+    reason: {
+        type: String,
         required: true
-    }
+    },
 });
 
 module.exports = mongoose.model('Mute', MuteSchema);

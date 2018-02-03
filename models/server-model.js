@@ -7,10 +7,6 @@ let ChatSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    date: {
-        type: Date,
-        required: true
-    },
     type: {
         type: String,
         required: true

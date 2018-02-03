@@ -6,6 +6,10 @@ let MessageSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    date : {
+        type: Date,
+        required: true
+    },
     first_name: {
         type: String,
         required:true
