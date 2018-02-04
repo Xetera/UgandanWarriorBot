@@ -6,3 +6,4 @@ exports.groupType = Object.freeze({
     PRIVATE: "private",
     SUPERGROUP: 'supergroup'
 });
+

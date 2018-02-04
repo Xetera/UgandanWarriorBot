@@ -1,4 +1,4 @@
-const UserSchema = require('../../../src/models/user-model');
+const UserSchema = require('../../../models/user-model');
 
 exports.parseUserData = function(from){
     return new UserSchema(from);

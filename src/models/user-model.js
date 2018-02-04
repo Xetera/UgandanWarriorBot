@@ -1,5 +1,4 @@
 let mongoose = require('mongoose');
-const mutes = require('./mute-model');
 
 let UserSchema = new mongoose.Schema({
     id: {

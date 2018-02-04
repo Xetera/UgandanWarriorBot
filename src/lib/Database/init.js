@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-const settings = require('../../config');
+const settings = require('../../../config');
 const debug = require('../../Development/Debug').debug;
 
 exports.login = function(){

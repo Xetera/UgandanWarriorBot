@@ -1,5 +1,5 @@
 const snoowrap = require('snoowrap');
-const config = require('../../config');
+const config = require('../../../config');
 
 const images = require('./RedditParser');
 const util = require('../Utility');

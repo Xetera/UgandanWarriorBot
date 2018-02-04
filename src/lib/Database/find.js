@@ -1,6 +1,6 @@
 const mongoos = require('mongoose');
-const userSchema = require('../../src/models/user-model');
-const serverSchema = require('../../src/models/server-model');
+const userSchema = require('../../models/user-model');
+const serverSchema = require('../../models/server-model');
 const debug = require('../../Development/Debug').debug;
 
 exports.findUser = function(id){

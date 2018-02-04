@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const userModel = require('../../src/models/user-model');
-const serverModel = require('../../src/models/server-model');
+const userModel = require('../../models/user-model');
+const serverModel = require('../../models/server-model');
 const find = require('./find');
 /**
  *

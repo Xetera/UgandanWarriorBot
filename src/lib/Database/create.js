@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
-const userModel = require('../../src/models/user-model');
-const serverModel = require('../../src/models/server-model');
+const userModel = require('../../models/user-model');
+const serverModel = require('../../models/server-model');
+const messageModel = require('../../models/message-model');
+exports.createMessage = function(from){
+  return new messageModel({
+      id: from.id,
+      date: new Date(),
+      first_name: from.first_name,
+      username: from.username
+  })
+};
 
 exports.createServer = function(from){
     console.log(from);

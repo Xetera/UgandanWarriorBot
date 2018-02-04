@@ -36,7 +36,9 @@ String.prototype.isInvite = function() {
 
 
 function middleWare(ctx, start){
+
     let messageType;
+
     if (ctx.chat.type === enums.groupType.SUPERGROUP){
         const serverID = ctx.chat.id;
 
@@ -74,6 +76,7 @@ function middleWare(ctx, start){
 
     let UserData = parser.parseUserData(ctx.from);
     //database.saveUser(UserData);
+
 
     // we only want this to run if the message we got was a text
     // otherwise the bot might break

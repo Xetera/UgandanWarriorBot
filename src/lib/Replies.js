@@ -1,4 +1,4 @@
-const settings = require('../Constants').SETTINGS;
+const settings = require('../../Constants').SETTINGS;
 
 exports.errorResponse = function(stackTrace){
     let response = "Something went wrong and I don't know the wae";

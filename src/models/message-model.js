@@ -10,6 +10,7 @@ let MessageSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+
     first_name: {
         type: String,
         required:true
@@ -26,3 +27,4 @@ let MessageSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Message', MessageSchema);
+

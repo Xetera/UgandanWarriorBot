@@ -2,23 +2,24 @@
 
 // importing local files with ./ in the beginning
 let config;
+
 const settings = require('./config');
 if (!process.env.TOKEN){
     config = require('./Private');
     settings.developmentMode = true;
 }
 
-const web = require('./lib/Web/Web');
-const setup = require('./lib/Setup');
-const replies = require('./lib/Replies');
+const web = require('./src/lib/Web/Web');
+const setup = require('./src/lib/Setup');
+const replies = require('./src/lib/Replies');
 const constants = require('./Constants');
-const debug = require('./Development/Debug').debug;
-const listeners = require('./lib/Listeners');
-const save = require('./lib/Save');
-const reddit = require('./lib/Web/Reddit');
+const debug = require('./src/Development/Debug').debug;
+const listeners = require('./src/lib/Listeners');
+const save = require('./src/lib/Save');
+const reddit = require('./src/lib/Web/Reddit');
 
 
-const Reddit = require('./lib/Web/Reddit');
+const Reddit = require('./src/lib/Web/Reddit');
 // libraries just straight up as it is
 const Telegraf = require('telegraf');
 
@@ -41,7 +42,6 @@ bot.use((ctx, next) => {
 
     // returns argument type
     let messageType = listeners.middleWare(ctx, start);
-
 
     
     return next().then(() => {

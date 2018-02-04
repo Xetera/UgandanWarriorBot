@@ -1,4 +1,4 @@
-const MessageModel = require('../../../src/models/message-model');
+const MessageModel = require('../../../models/message-model');
 
 exports.parseUserData = function(from){
     return new MessageModel(from);
