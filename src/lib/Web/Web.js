@@ -1,8 +1,8 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const enums = require('../../lib/Enums');
+const enums = require('../Enums');
 
-const util = require('../../lib/Utility');
+const util = require('../Utility');
 const constants = require('../../Constants');
 
 /**

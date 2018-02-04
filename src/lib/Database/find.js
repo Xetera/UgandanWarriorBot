@@ -1,6 +1,6 @@
 const mongoos = require('mongoose');
-const userSchema = require('../../models/user-model');
-const serverSchema = require('../../models/server-model');
+const userSchema = require('../../src/models/user-model');
+const serverSchema = require('../../src/models/server-model');
 const debug = require('../../Development/Debug').debug;
 
 exports.findUser = function(id){
@@ -14,12 +14,13 @@ exports.findUser = function(id){
     });
 };
 
-exports.findUserInServer = function(id){
+exports.findUserInServer = function(userID, server){
+    console.log(server);
     return new Promise(function(resolve, reject){
-        serverSchema.find({"users":{id: id}}).then(doc => {
+        serverSchema.find({id: server.id, "users.id": userID}).then(doc => {
             resolve(doc);
             console.log(doc);
-        })
+        });
     })
 };
 

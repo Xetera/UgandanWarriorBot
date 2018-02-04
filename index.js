@@ -8,17 +8,17 @@ if (!process.env.TOKEN){
     settings.developmentMode = true;
 }
 
-const web = require('./Commands/Web/Web');
+const web = require('./lib/Web/Web');
 const setup = require('./lib/Setup');
 const replies = require('./lib/Replies');
 const constants = require('./Constants');
 const debug = require('./Development/Debug').debug;
 const listeners = require('./lib/Listeners');
 const save = require('./lib/Save');
-const reddit = require('./Commands/Web/Reddit');
+const reddit = require('./lib/Web/Reddit');
 
 
-const Reddit = require('./Commands/Web/Reddit');
+const Reddit = require('./lib/Web/Reddit');
 // libraries just straight up as it is
 const Telegraf = require('telegraf');
 

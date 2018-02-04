@@ -2,7 +2,7 @@ const snoowrap = require('snoowrap');
 const config = require('../../config');
 
 const images = require('./RedditParser');
-const util = require('../../lib/Utility');
+const util = require('../Utility');
 
 
 const r = new snoowrap({
