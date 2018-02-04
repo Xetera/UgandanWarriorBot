@@ -19,7 +19,7 @@ let UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    messages: {
+    messageCount: {
         type:Number,
         required: false
     },
@@ -31,6 +31,10 @@ let UserSchema = new mongoose.Schema({
     },
     ignoring: { // ignoring all commands from user?
         type: Boolean,
+        required: false
+    },
+    note: {
+        type:String,
         required: false
     }
 });
