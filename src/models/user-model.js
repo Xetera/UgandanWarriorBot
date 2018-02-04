@@ -1,4 +1,6 @@
 let mongoose = require('mongoose');
+let Message = require('./message-model').messageTemplate;
+let Sentence = require('./sentence-model').sentenceTemplate;
 
 let UserSchema = new mongoose.Schema({
     id: {
@@ -18,19 +20,21 @@ let UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    messageCount: {
-        type:Number,
+    messages: {
+        type: [Message],
         required: false
     },
+    messageCount: {
+        type: Number,
+        required: true
+    },
     sentences: {
-        type: {
-            type: mongoose.Schema.Types.ObjectId, ref: 'Sentence'
-        },
+        type: [Sentence],
         required: false
     },
     ignoring: { // ignoring all commands from user?
         type: Boolean,
-        required: false
+        required: true
     },
     note: {
         type:String,
@@ -38,4 +42,5 @@ let UserSchema = new mongoose.Schema({
     }
 });
 
+module.exports.userTemplate = UserSchema;
 module.exports = mongoose.model('User', UserSchema);

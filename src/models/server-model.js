@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-const User = require('./user-model');
+const User = require('./user-model').userTemplate;
 
 
 let ChatSchema = new mongoose.Schema({
@@ -7,10 +7,6 @@ let ChatSchema = new mongoose.Schema({
         type: Number,
         required: true,
         unique: true
-    },
-    date: {
-        type: Date,
-        required: true
     },
     type: {
         type: String,
@@ -21,9 +17,7 @@ let ChatSchema = new mongoose.Schema({
         required: true
     },
     users: {
-        type: [{
-            type: mongoose.Schema.Types.ObjectId, ref: 'User'
-        }],
+        type: [User],
         required: false // in case our chat is PM -> no users
     },
 

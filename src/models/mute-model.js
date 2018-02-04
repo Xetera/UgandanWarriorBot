@@ -14,5 +14,5 @@ let MuteSchema = new mongoose.Schema({
         required: true
     },
 });
-
+module.exports.muteTemplate = MuteSchema;
 module.exports = mongoose.model('Mute', MuteSchema);
