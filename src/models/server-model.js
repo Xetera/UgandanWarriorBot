@@ -16,10 +16,14 @@ let ChatSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    name : {
+        type: String,
+        required: true
+    },
     users: {
-        type: {
+        type: [{
             type: mongoose.Schema.Types.ObjectId, ref: 'User'
-        },
+        }],
         required: false // in case our chat is PM -> no users
     },
 

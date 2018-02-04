@@ -10,14 +10,9 @@ let MessageSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-
     first_name: {
         type: String,
         required:true
-    },
-    is_bot: {
-        type: Boolean,
-        required: true
     },
     username: {
         type: String,

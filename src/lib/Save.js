@@ -1,6 +1,6 @@
 const fs = require("fs");
-const fileName = '../Servers.json';
-const save = require(fileName);
+//const fileName = '../Servers.json';
+//const save = require(fileName);
 
 function addNewServer(serverName){
     save[serverName] = {};

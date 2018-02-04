@@ -1,10 +1,21 @@
 const debug = require('../Development/Debug').debug;
 const handler = require('./Handler');
-const database = {};
-database.saveUser = require('./Database/save').saveUser;
-database.saveServer = require('./Database/Presets/server-presets').saveServer;
-const parser = require('./Database/Data-Parsing/User');
+const util = require('./Utility');
 
+const database = {};
+database.save = {};
+database.find = {};
+database.create = {};
+
+database.save.userInServer = require('./Database/save').saveUserInServer;
+database.save.server = require('./Database/save').saveServer;
+database.find.userInServer = require('./Database/find').findUserInServer;
+database.find.server = require('./Database/find').findServer;
+database.create.server = require('./Database/create').createServer;
+database.create.user = require('./Database/create').createUser;
+
+const parser = require('./Database/Data-Parsing/User');
+const enums = require('../lib/Enums');
 const _regex = require('./Regex');
 // I know this is VERY basic but it's the best I can come up with right now lmao
 // I haven't seen enough tokens but this seems to be the general idea
@@ -27,6 +38,44 @@ String.prototype.isInvite = function() {
 function middleWare(ctx, start){
 
     let messageType;
+
+    if (ctx.chat.type === enums.groupType.SUPERGROUP){
+        const serverID = ctx.chat.id;
+
+        let userServer;
+        database.find.server(serverID).then(server => {
+            if (!util.serverExists(server)){ // server doesn't exist
+
+                debug.warning(ctx.chat);
+
+                let serverModel = database.create.server(ctx.chat);
+                database.save.server(serverModel);
+                userServer = serverModel;
+            }
+            else {
+                debug.error(server);
+                userServer = server;
+            }
+        });
+        console.log(userServer)
+        database.find.userInServer(ctx.from.id, userServer).then(user => {
+            console.info(user);
+            if (!user.length){
+                console.log(ctx.from);
+                let userModel = database.create.user(ctx.from);
+                console.log('sig')
+                database.save.userInServer(userModel, userServer);
+            }
+            // user is already found so we're updating
+        });
+    }
+    else if (ctx.chat.type === enums.groupType.PRIVATE){
+
+    }
+
+
+    let UserData = parser.parseUserData(ctx.from);
+    //database.saveUser(UserData);
 
 
     // we only want this to run if the message we got was a text

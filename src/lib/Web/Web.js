@@ -1,9 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const enums = require('../../lib/Enums');
+const enums = require('../Enums');
 
-const util = require('../../lib/Utility');
-const constants = require('../../Constants');
+const util = require('../Utility');
+const constants = require('../../../Constants');
 
 /**
  * fetches the URL of a random Cyanide and Happiness comic

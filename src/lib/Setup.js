@@ -1,5 +1,5 @@
 const log = require('./Utility').log;
-const constants = require("../Constants");
+const constants = require("../../Constants");
 const mongodb = require('./Database/init');
 
 

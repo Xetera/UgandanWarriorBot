@@ -33,7 +33,9 @@ exports.flattenObject = function(obj1, obj2){
     return obj1;
 };
 
-
+exports.serverExists = function(server){
+    return server.length;
+}
 
 
 
