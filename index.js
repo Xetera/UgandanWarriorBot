@@ -4,6 +4,7 @@
 let config;
 
 const settings = require('./config');
+
 if (!process.env.TOKEN){
     config = require('./Private');
     settings.developmentMode = true;
@@ -13,7 +14,7 @@ const web = require('./src/lib/Web/Web');
 const setup = require('./src/lib/Setup');
 const replies = require('./src/lib/Replies');
 const constants = require('./Constants');
-const debug = require('./src/Development/Debug').debug;
+const debug = require('./src/Development/Debug');
 const listeners = require('./src/lib/Listeners');
 const save = require('./src/lib/Save');
 const reddit = require('./src/lib/Web/Reddit');
@@ -23,9 +24,7 @@ const Reddit = require('./src/lib/Web/Reddit');
 // libraries just straight up as it is
 const Telegraf = require('telegraf');
 
-
 bot = new Telegraf(process.env.TOKEN || config.BETA_TOKEN);
-
 
 // Updating info & setup
 setup.login(bot);
@@ -57,8 +56,6 @@ bot.use((ctx, next) => {
         }
     });
 });
-
-
 
 bot.start((ctx) => {
     console.log('started:', ctx.from.id);
@@ -113,8 +110,6 @@ bot.command('hi', ctx => {
     ctx.reply(`Hi @${ctx.from.username}!`);
 });
 
-
-
 bot.command('ch', async(ctx) => {
     /* instead of using .then() we can make our functions
      * asynchronous and just call await which makes things
@@ -133,7 +128,6 @@ bot.command('ch', async(ctx) => {
 
 });
 
-
 // regex voodoo, $ you're probably more knowledgeable about this than I am lmao
 bot.hears(/buy/i, ctx => {
     ctx.reply('Buy-buy!');
@@ -149,8 +143,6 @@ bot.on('sticker', ctx => {
 bot.catch(err => {
 
 });
-
-
 
 // starts the bot
 bot.startPolling()

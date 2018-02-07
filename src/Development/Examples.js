@@ -36,7 +36,4 @@ let messageInfo = {
         ]
 };
 
-let serverInfo = {
-
-}
 // not sure why entities is in an array but ok
