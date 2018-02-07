@@ -48,7 +48,8 @@ Uses Middleware to parse messages for things like arguments and match regex.
 - [ ] Introduce permissions for commands
 - [ ] Automatic spam detection
 - [ ] Adjustable security level for spam tolerance
-- [ ] 
+- [ ] Ability for ignoring user commands 
+- [ ] Automatic mute command spammers
 - [ ] Panic command for deleting all non-mod messages during raids 
 
 ## Database:
