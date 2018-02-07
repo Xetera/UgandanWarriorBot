@@ -6,6 +6,14 @@ let UserSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    server_id : {
+        type: Number,
+        require: false
+    },
+    server_name: {
+        type: String,
+        require: true
+    },
     first_name: {
         type: String,
         required:true
@@ -19,18 +27,16 @@ let UserSchema = new mongoose.Schema({
         required: true
     },
     messageCount: {
-        type:Number,
-        required: false
+        type: Number,
+        required: true
     },
-    sentences: {
-        type: {
-            type: mongoose.Schema.Types.ObjectId, ref: 'Sentence'
-        },
-        required: false
+    mediaCount: {
+        type: Number,
+        require: false
     },
     ignoring: { // ignoring all commands from user?
         type: Boolean,
-        required: false
+        required: true
     },
     note: {
         type:String,
@@ -38,4 +44,5 @@ let UserSchema = new mongoose.Schema({
     }
 });
 
+module.exports.userTemplate = UserSchema;
 module.exports = mongoose.model('User', UserSchema);

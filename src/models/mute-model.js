@@ -1,6 +1,10 @@
 let mongoose = require('mongoose');
 
 let MuteSchema = new mongoose.Schema({
+    user : {
+        type:Number,
+        required: true
+    },
     start: {
         type: Date,
         required: true
@@ -14,5 +18,5 @@ let MuteSchema = new mongoose.Schema({
         required: true
     },
 });
-
+module.exports.muteTemplate = MuteSchema;
 module.exports = mongoose.model('Mute', MuteSchema);

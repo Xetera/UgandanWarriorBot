@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
-const User = require('./user-model');
+const User = require('./user-model').userTemplate;
+
 
 
 let ChatSchema = new mongoose.Schema({
@@ -16,17 +17,11 @@ let ChatSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    name : {
+    name: {
         type: String,
         required: true
-    },
-    users: {
-        type: [{
-            type: mongoose.Schema.Types.ObjectId, ref: 'User'
-        }],
-        required: false // in case our chat is PM -> no users
-    },
+    }
 
 });
 
-module.exports = mongoose.model('Chat', ChatSchema);
+module.exports = mongoose.model('Server', ChatSchema);

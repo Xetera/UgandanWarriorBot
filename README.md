@@ -1,6 +1,8 @@
 # Ugandan Warrior Bot
 
+
 Security and moderation bot for telegram, inspired by https://github.com/AberrantFox/hotbot
+
 
 ## Getting it to work:
 * Enter your bot token in config.js
@@ -34,6 +36,7 @@ Uses Middleware to parse messages for things like arguments and match regex.
 * [Snoowrap](https://github.com/not-an-aardvark/snoowrap) for Reddit integration
 
 * [Download](https://github.com/kevva/download) for downloading web elements (optional)
+
 
 # TODO:
 ## Listeners:

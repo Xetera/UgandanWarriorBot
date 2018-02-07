@@ -35,29 +35,5 @@ exports.flattenObject = function(obj1, obj2){
 
 exports.serverExists = function(server){
     return server.length;
-}
-
-
-
-
-
-/*  =========== LOGGING  ============= */
-
-
-log = {};
-exports.log = log;
-
-// these aren't completely very useful without the color module but
-// we'll eventually get this on a vps so colors won't even be shown
-// also we should most definitely be using a library for this lmao
-log.info = function(str){
-    console.log('[INFO]: ' + str);
 };
 
-log.warning = function(str){
-    console.log('[WARNING]: ' + str)
-};
-
-log.error = function(str){
-    console.log('[ERROR]: ' + str);
-};

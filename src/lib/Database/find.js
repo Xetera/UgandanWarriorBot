@@ -1,33 +1,25 @@
-const mongoos = require('mongoose');
+const mongoose = require('mongoose');
 const userSchema = require('../../models/user-model');
 const serverSchema = require('../../models/server-model');
-const debug = require('../../Development/Debug').debug;
+const debug = require('../../Development/Debug');
 
-exports.findUser = function(id){
-    return new Promise(function(resolve, reject){
-        userSchema.find({id: id}).then(doc => {
-            resolve(doc);
-        }).catch(err => {
-            debug.error(err);
-            reject(err);
-        })
-    });
-};
 
-exports.findUserInServer = function(userID, server){
-    console.log(server);
+exports.findUser = function(userID, server){
     return new Promise(function(resolve, reject){
-        serverSchema.find({id: server.id, "users.id": userID}).then(doc => {
-            resolve(doc);
-            console.log(doc);
+        console.log('findserver USERID');
+        console.log(server);
+        console.log(userID);
+        userSchema.find({id: userID, server_id:server.id}).then(user=> {
+            console.log(user);
+            resolve(user);
         });
     })
 };
 
 exports.findServer = function(id){
     return new Promise(function(resolve, reject){
+
         serverSchema.find({id: id}).then(doc => {
-            console.log(doc);
             resolve(doc);
         }).catch(err => {
             reject(err);
