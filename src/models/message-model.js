@@ -21,8 +21,8 @@ let MessageSchema = new mongoose.Schema({
         type:String,
         required: true
     }
-
 });
+
 module.exports.messageTemplate = MessageSchema;
 module.exports = mongoose.model('Message', MessageSchema);
 

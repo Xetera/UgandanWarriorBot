@@ -12,15 +12,11 @@ let ChatSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    name : {
+    name: {
         type: String,
         required: true
-    },
-    users: {
-        type: [User],
-        required: false // in case our chat is PM -> no users
-    },
+    }
 
 });
 
-module.exports = mongoose.model('Chat', ChatSchema);
+module.exports = mongoose.model('Server', ChatSchema);

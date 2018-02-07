@@ -2,9 +2,9 @@ let mongoose = require('mongoose');
 const mutes = require('./mute-model').muteTemplate;
 
 let SentenceSchema = new mongoose.Schema({
-    mutes: {
-        type: [mutes],
-        required: false
+    user: {
+        type: Number,
+        required: true
     },
     totalMutes: {
         type: Number,

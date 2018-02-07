@@ -8,6 +8,14 @@ let UserSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    server_id : {
+        type: Number,
+        require: false
+    },
+    server_name: {
+        type: String,
+        require: true
+    },
     first_name: {
         type: String,
         required:true
@@ -20,17 +28,9 @@ let UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    messages: {
-        type: [Message],
-        required: false
-    },
     messageCount: {
         type: Number,
         required: true
-    },
-    sentences: {
-        type: [Sentence],
-        required: false
     },
     ignoring: { // ignoring all commands from user?
         type: Boolean,

@@ -1,6 +1,10 @@
 let mongoose = require('mongoose');
 
 let MuteSchema = new mongoose.Schema({
+    user : {
+        type:Number,
+        required: true
+    },
     start: {
         type: Date,
         required: true
