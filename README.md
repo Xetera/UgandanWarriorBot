@@ -1,11 +1,11 @@
 # Ugandan Warrior Bot
 
-Meme telegram bot project in node.js, influenced by https://github.com/AberrantFox/hotbot
+Security and moderation bot for telegram, inspired by https://github.com/AberrantFox/hotbot
 
 ## Getting it to work:
 * Enter your bot token in config.js
 
-* Enter your reddit app credentials in there too cuz so far it'll just give you errors
+* Enter your reddit app credentials in there too cuz so far it'll just give you errors `< fixing this soon`
 
 * Build the dependencies with `npm install` otherwise it wont work, obviously
 
@@ -35,16 +35,27 @@ Uses Middleware to parse messages for things like arguments and match regex.
 
 * [Download](https://github.com/kevva/download) for downloading web elements (optional)
 
-## TODO:
+# TODO:
+## Listeners:
+- [x] Automatically delete leaked telegram bot tokens
+- [x] Automatically delete telegram invites
+- [ ] Customizable blacklisted links
 
-- [x] Automatically delete leaked bot tokens
-- [x] Automatically delete invites
+## Moderation:
+- [ ] Timed user mute/mediamute
+- [ ] Add continuous userCount polling to know when someone joins or leaves a group
+- [ ] Ability to add notes to users
+- [ ] Introduce permissions for commands
+- [ ] Automatic spam detection
+- [ ] Adjustable security level for spam tolerance
+- [ ] 
+- [ ] Panic command for deleting all non-mod messages during raids 
+
+## Database:
 - [x] Add a persistent db, prefereably noSQL since we're working with node
 - [ ] Permanently save messages
 - [ ] Optionally move moderation commands to another server that you can link to the original
-- [ ] Add more moderation commands like: timed ban
-- [ ] Add continuous userCount polling to know when someone joins a group
-- [ ] Add user notes for mods
-- [ ] Introduce permissions for commands
-- [ ] Get good ideas
+- [ ] Optionally persistent collection of spammers to blacklist from all bot instances **UNSURE** 
 
+## Fun:
+- [x] Random cynanide and happiness comic  
