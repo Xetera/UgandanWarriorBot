@@ -40,6 +40,7 @@ Uses Middleware to parse messages for things like arguments and match regex.
 - [x] Automatically delete leaked telegram bot tokens
 - [x] Automatically delete telegram invites
 - [ ] Customizable blacklisted links
+- [ ] Delete messages with too mentions 
 
 ## Moderation:
 - [ ] Timed user mute/mediamute
@@ -48,9 +49,9 @@ Uses Middleware to parse messages for things like arguments and match regex.
 - [ ] Introduce permissions for commands
 - [ ] Automatic spam detection
 - [ ] Adjustable security level for spam tolerance
-- [ ] Ability for ignoring user commands 
+- [ ] Ability for ignoring user commands
 - [ ] Automatic mute command spammers
-- [ ] Panic command for deleting all non-mod messages during raids 
+- [ ] Panic command for deleting all non-mod messages during raids
 
 ## Database:
 - [x] Add a persistent db, prefereably noSQL since we're working with node
