@@ -7,4 +7,4 @@ debug.warning = dbg('Bot:Warning');
 debug.error   = dbg('Bot:Error');
 
 
-exports.debug = debug;
+module.exports = debug;
