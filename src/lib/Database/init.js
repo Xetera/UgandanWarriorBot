@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 const settings = require('../../../config');
-const debug = require('../../Development/Debug').debug;
+const debug = require('../../Development/Debug');
 
 exports.login = function(){
     let date = new Date();

@@ -2,35 +2,61 @@ const mongoose = require('mongoose');
 const userModel = require('../../models/user-model');
 const serverModel = require('../../models/server-model');
 const find = require('./find');
-/**
- *
- * @param {mongoose.Model} user
- */
-exports.saveUserInServer = function(user, server) {
-    server.update({id: server.id, "users.id": user.id}).then((err)=>{
-        if (err) console.log(err);
-        console.log("updarted user!!!")
+const debug = require('../../Development/Debug');
+
+
+const saveUserInServer = function(user) {
+    return new Promise(function(resolve, reject){
+        console.log('saving user');
+        console.log(user);
+        user.save().then((err)=> {
+            console.log(err);
+            resolve();
+        })
     })
 };
 
-exports.saveNewUserInServer = function(user, server){
-    server.update({id: server.id}, {$push: {users: user}}).then(err => {
-        if (err) return console.log(err);
-        console.log('Added new user successfully.');
-    })
+
+const saveServer = function(server) {
+    return new Promise(function (resolve, reject){
+        server.save().then(()=>{
+            resolve();
+        });
+    });
 };
 
-exports.saveServer = function(server) {
-    server.save().then(()=>{
-        debug.info('Saved!');
-    })
+const saveMessage = function(message){
+    return new Promise(function(resolve, reject){
+        message.save().then(response => {
+            resolve();
+        });
+    });
 };
 
-exports.updateUserNote = function(server, user, note){
+const updateUserNote = function(user, note){
     let options = {upsert: true};
-    server.update({'users.id':user.id}, {note: note}, options).then(err => {
+    userModel.update({_id: user._id},{note: note}, options).then(err => {
         if (!err){
             debug.info(`Note for user ${user.username} was updated.`);
         }
     })
+};
+
+const incrementMessageCount = function(user, server){
+    userModel.update({id: user.id, server_id: server[0].id}, {$inc: {messageCount: 1}});
+};
+
+const saveUserMessage = function(user, message) {
+    userModel.findOne({_id: user._id}).then((err, doc )=> {
+        if (err) console.log(err);
+
+    });
+};
+module.exports = {
+    saveUserMessage: saveUserMessage,
+    incrementMessageCount: incrementMessageCount,
+    updateUserNote: updateUserNote,
+    saveMessage: saveMessage,
+    saveServer: saveServer,
+    saveUserInServer: saveUserInServer
 };
