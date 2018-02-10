@@ -11,9 +11,8 @@ Security and moderation bot for telegram, inspired by https://github.com/Aberran
 
 * Build the dependencies with `npm install` otherwise it wont work, obviously
 
-* Use debug.bat while developing to get automatic restarts with nodemon on code change and debug messages from telegraf:api
-
-* Or debugSilent.bat to only get Bot debug notes and not the ones from telegraf
+* Use debug.bat while developing to get automatic restarts with nodemon on code change and debug messages from telegraf:api 
+  or debugSilent.bat to only get Bot debug notes and not the ones from telegraf
 
 ## Dev Notes:
 
@@ -31,7 +30,7 @@ Uses Middleware to parse messages for things like arguments and match regex.
 
 * [Debug](https://github.com/visionmedia/debug) for, well, debugging
 
-* [Nodemon](https://github.com/remy/nodemon) for automatic restarts while working
+* [Nodemon](https://github.com/remy/nodemon) for automatic restarts while debugging
 
 * [Snoowrap](https://github.com/not-an-aardvark/snoowrap) for Reddit integration
 
@@ -47,9 +46,10 @@ Uses Middleware to parse messages for things like arguments and match regex.
 
 ## Moderation:
 - [ ] Timed user mute/mediamute
-- [ ] Add continuous userCount polling to know when someone joins or leaves a group
 - [ ] Ability to add notes to users
+- [ ] Add continuous userCount polling to know when someone joins or leaves a group
 - [ ] Introduce permissions for commands
+- [ ] Add a strike system for keeping track of user infractions
 - [ ] Automatic spam detection
 - [ ] Adjustable security level for spam tolerance
 - [ ] Ability for ignoring user commands
@@ -58,9 +58,11 @@ Uses Middleware to parse messages for things like arguments and match regex.
 
 ## Database:
 - [x] Add a persistent db, prefereably noSQL since we're working with node
-- [ ] Permanently save messages
+- [x] Permanently save messages
+- [ ] Track \# of media per user
 - [ ] Optionally move moderation commands to another server that you can link to the original
 - [ ] Optionally persistent collection of spammers to blacklist from all bot instances **UNSURE** 
+- [ ] Encrypt message contents
 
 ## Fun:
 - [x] Random cynanide and happiness comic  
