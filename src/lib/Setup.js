@@ -22,5 +22,4 @@ exports.login = function(bot){
         }).catch(e => {
             debug.error('Error getting bot data for setup.', e);
         });
-
 };

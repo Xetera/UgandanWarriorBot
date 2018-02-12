@@ -29,7 +29,8 @@ String.prototype.isInvite = function() {
 };
 
 
-async function middleWare(ctx, start) {
+function middleWare(ctx, start){
+
     let messageType;
 
     if (ctx.chat.type === enums.groupType.SUPERGROUP){
@@ -39,32 +40,32 @@ async function middleWare(ctx, start) {
         let serverModel;
         find.findServer(serverID).then(server => {
 
-
             if (!util.serverExists(server)){ // server doesn't exist
 
-                let _serverModel = create.createServer(ctx.chat);
+                let _serverModel = create.createServer(ctx);
                 serverModel = _serverModel;
                 save.saveServer(_serverModel);
             }
             else {
-                serverModel = server;
+                serverModel = server[0];
             }
-            debug.info(serverModel);
             find.findUser(ctx.from.id, serverModel).then(user => {
-
                 let userModel;
 
                 if (!user.length){
                     userModel = create.createUser(ctx);
+                    save.saveUserInServer(userModel);
+                    save.incrementMessageCount(userModel, serverModel);
                 }
                 else {
-                    userModel = user;
+                    userModel = user[0];
                 }
+
                 //save.saveUserInServer(userModel);
                 save.incrementMessageCount(userModel, serverModel);
 
                 save.saveMessage(messageModel);
-                //save.saveUserInServer(userModel);
+                save.saveUserInServer(userModel);
             });
         });
     }
@@ -75,6 +76,7 @@ async function middleWare(ctx, start) {
 
     let UserData = parser.parseUserData(ctx.from);
     //saveUser(UserData);
+
 
 
     // we only want this to run if the message we got was a text

@@ -14,7 +14,10 @@ const web = require('./src/lib/Web/Web');
 const setup = require('./src/lib/Setup');
 const replies = require('./src/lib/Replies');
 const constants = require('./Constants');
+
 const debug = require('./src/Development/Debug');
+const getMessageCount = require('./src/Commands/Database/GetMessage');
+
 const listeners = require('./src/lib/Listeners');
 const save = require('./src/lib/Save');
 const reddit = require('./src/lib/Web/Reddit');
@@ -42,7 +45,6 @@ bot.use((ctx, next) => {
     // returns argument type
     let messageType = listeners.middleWare(ctx, start);
 
-    
     return next().then(() => {
         // this part gets run after we're done with handling the request
 
@@ -100,7 +102,6 @@ bot.command('help', ctx => {
     ctx.reply('Whatsapp : not da wae\nTelegram : definitely wae');
 });
 
-
 bot.hears(/stupid bot/i, ctx => {
     ctx.reply('Hey watch your mouth motherfucker');
 });
@@ -125,9 +126,12 @@ bot.command('ch', async(ctx) => {
     catch (e){
         ctx.reply(replies.errorResponse(e))
     }
-
 });
 
+bot.command('messages', async(ctx) => {
+    const messageCount = await getMessageCount(ctx);
+    ctx.reply(`@${ctx.from.username} you have ${messageCount} messages in "${ctx.chat.title}"`);
+});
 // regex voodoo, $ you're probably more knowledgeable about this than I am lmao
 bot.hears(/buy/i, ctx => {
     ctx.reply('Buy-buy!');
@@ -137,6 +141,8 @@ bot.hears(/buy/i, ctx => {
 bot.on('sticker', ctx => {
     ctx.reply('👍')
 });
+
+bot.on('media')
 
 // catching telegraf's errors
 // for now this isn't really working the way we want it to

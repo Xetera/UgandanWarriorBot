@@ -1,12 +1,9 @@
 let mongoose = require('mongoose');
-let Message = require('./message-model').messageTemplate;
-let Sentence = require('./sentence-model').sentenceTemplate;
 
 let UserSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true,
-        unique: true
     },
     server_id : {
         type: Number,
@@ -31,6 +28,10 @@ let UserSchema = new mongoose.Schema({
     messageCount: {
         type: Number,
         required: true
+    },
+    mediaCount: {
+        type: Number,
+        require: false
     },
     ignoring: { // ignoring all commands from user?
         type: Boolean,

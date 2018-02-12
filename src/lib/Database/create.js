@@ -7,8 +7,10 @@ const debug = require('../../Development/Debug');
 
 exports.createMessage = function(ctx){
     let message = ctx.update.message;
+
     let model =  new messageModel({
         id:         message.message_id,
+        server_id:  ctx.from.id,
         date:       message.date,
         first_name: ctx.from.first_name,
         username:   ctx.from.username,
@@ -19,7 +21,10 @@ exports.createMessage = function(ctx){
 };
 
 
-exports.createServer = function(from){
+
+exports.createServer = function(ctx){
+    const from = ctx.from;
+
     let model = new serverModel({
         id: from.id,
         name: from.title,
@@ -40,7 +45,7 @@ exports.createUser = function(ctx){
         server_id: ctx.chat.id,
         server_name: ctx.chat.first_name,
         ignoring: false,
-        messageCount: 0
+        messageCount: 1 // we have to put this as one because users don't get updated before saving
     });
     debug.info("Created new User");
     return model;

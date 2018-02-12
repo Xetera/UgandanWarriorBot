@@ -2,11 +2,16 @@ let mongoose = require('mongoose');
 const User = require('./user-model').userTemplate;
 
 
+
 let ChatSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true,
         unique: true
+    },
+    date: {
+        type: Date,
+        required: true
     },
     type: {
         type: String,

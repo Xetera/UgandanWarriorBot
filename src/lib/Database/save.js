@@ -7,8 +7,7 @@ const debug = require('../../Development/Debug');
 
 const saveUserInServer = function(user) {
     return new Promise(function(resolve, reject){
-        console.log('saving user');
-        console.log(user);
+
         user.save().then((err)=> {
             console.log(err);
             resolve();
@@ -43,7 +42,10 @@ const updateUserNote = function(user, note){
 };
 
 const incrementMessageCount = function(user, server){
-    userModel.update({id: user.id, server_id: server[0].id}, {$inc: {messageCount: 1}});
+
+    userModel.update({id: user.id, server_id: server.id}, {$inc: {messageCount: 1}}).then(response => {
+        console.log(response);
+    });
 };
 
 const saveUserMessage = function(user, message) {
